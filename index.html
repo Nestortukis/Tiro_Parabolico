@@ -11,19 +11,17 @@
       background: linear-gradient(to top right, #1e3c72, #2a5298);
       color: #fff;
       margin: 0;
-      overflow: hidden;
       height: 100vh;
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .container {
       max-width: 600px;
-      margin: 30px auto;
       background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       padding: 30px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      position: relative;
-      z-index: 10;
     }
     h1 {
       text-align: center;
@@ -60,24 +58,6 @@
       border-radius: 8px;
       margin-top: 20px;
     }
-    #cohete {
-      position: absolute;
-      width: 50px;
-      left: 0;
-      bottom: 0;
-      z-index: 1;
-      transform: translate(0, 0);
-    }
-    #canvasArea {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-    }
   </style>
 </head>
 <body>
@@ -92,10 +72,6 @@
     <button onclick="calcular()">Calcular</button>
 
     <div id="resultados"></div>
-  </div>
-
-  <div id="canvasArea">
-    <img id="cohete" src="https://cdn-icons-png.flaticon.com/512/3210/3210031.png" alt="cohete" />
   </div>
 
   <script>
@@ -122,40 +98,13 @@
         <p><strong>Tiempo de vuelo:</strong> ${tiempoVuelo.toFixed(2)} s</p>
         <p><strong>Altura máxima:</strong> ${alturaMax.toFixed(2)} m</p>
         <p><strong>Alcance:</strong> ${alcance.toFixed(2)} m</p>
+        <h4>¿Cómo se calculó?</h4>
+        <ul>
+          <li><strong>Tiempo de vuelo:</strong> 2 * Vy / g = 2 * ${vy.toFixed(2)} / ${g} = ${tiempoVuelo.toFixed(2)} s</li>
+          <li><strong>Altura máxima:</strong> Vy² / (2 * g) = (${vy.toFixed(2)}²) / (2 * ${g}) = ${alturaMax.toFixed(2)} m</li>
+          <li><strong>Alcance:</strong> Vx * Tiempo de vuelo = ${vx.toFixed(2)} * ${tiempoVuelo.toFixed(2)} = ${alcance.toFixed(2)} m</li>
+        </ul>
       `;
-
-      animarCohete(v0, rad);
-    }
-
-    function animarCohete(v0, rad) {
-      const g = 9.81;
-      const cohete = document.getElementById('cohete');
-      const canvas = document.getElementById('canvasArea');
-      const vx = v0 * Math.cos(rad);
-      const vy = v0 * Math.sin(rad);
-      const tTotal = (2 * vy) / g;
-
-      let startTime = null;
-
-      function animar(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = (timestamp - startTime) / 1000;
-
-        if (elapsed > tTotal) return;
-
-        const x = vx * elapsed;
-        const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
-
-        const escala = 4; // escala ajustada
-        const px = escala * x;
-        const py = escala * y;
-
-        cohete.style.transform = `translate(${px}px, -${py}px)`;
-
-        requestAnimationFrame(animar);
-      }
-
-      requestAnimationFrame(animar);
     }
   </script>
 </body>
