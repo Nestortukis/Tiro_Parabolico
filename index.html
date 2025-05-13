@@ -76,14 +76,13 @@
       border: 2px solid #fff;
       margin-top: 30px;
       overflow: hidden;
+      z-index: 1;
     }
 
     #cohete {
       position: absolute;
       width: 70px;
-      left: 0;
-      bottom: 0;
-      z-index: 1;
+      z-index: 10;
     }
   </style>
 </head>
@@ -131,10 +130,10 @@
         <p><strong>Alcance:</strong> ${alcance.toFixed(2)} m</p>
       `;
 
-      animarCohete(v0, rad);
+      animarCohete(v0, rad, alcance);
     }
 
-    function animarCohete(v0, rad) {
+    function animarCohete(v0, rad, alcance) {
       const g = 9.81;
       const cohete = document.getElementById('cohete');
       const vx = v0 * Math.cos(rad);
@@ -152,10 +151,11 @@
         const x = vx * elapsed;
         const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
 
-        const escala = 6; // ajuste de escala visual
-        const px = Math.min(escala * x, document.getElementById('canvasArea').offsetWidth - cohete.offsetWidth);
+        const escala = 5; // ajuste de escala visual
+        const px = Math.min(escala * x, alcance);
         const py = Math.min(escala * y, document.getElementById('canvasArea').offsetHeight - cohete.offsetHeight);
 
+        // Desplazamos el cohete
         cohete.style.transform = `translate(${px}px, -${py}px)`;
 
         requestAnimationFrame(animar);
