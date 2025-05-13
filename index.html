@@ -81,7 +81,7 @@
 
     #cohete {
       position: absolute;
-      width: 70px;
+      width: 20px;  /* Hacer el cohete pequeño */
       z-index: 10;
       transition: all 0.1s linear;
     }
@@ -156,7 +156,7 @@
         const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
 
         // Aseguramos que el cohete no se salga del área
-        const scale = 5;  // Factor de escala visual
+        const scale = 0.2;  // Factor de escala visual más pequeño
         const px = Math.min(scale * x, canvasWidth - cohete.width);
         const py = Math.min(scale * y, canvasHeight - cohete.height);
 
@@ -171,5 +171,3 @@
   </script>
 </body>
 </html>
-
-
