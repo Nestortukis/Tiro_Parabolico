@@ -13,6 +13,8 @@
       padding: 20px;
       margin: 0;
       overflow: hidden;
+      position: relative;
+      height: 100vh;
     }
     .container {
       max-width: 600px;
@@ -63,6 +65,8 @@
       position: absolute;
       width: 60px;
       z-index: 1;
+      left: 50px;
+      bottom: 20px;
     }
   </style>
 </head>
@@ -80,7 +84,7 @@
     <div id="resultados"></div>
   </div>
 
-  <img id="cohete" src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" alt="cohete" class="cohete" />
+  <img id="cohete" src="https://cdn-icons-png.flaticon.com/512/2534/2534013.png" alt="cohete" class="cohete" />
 
   <script>
     function calcular() {
@@ -113,10 +117,7 @@
 
     function animarCohete(v0, rad) {
       const g = 9.81;
-      const canvasWidth = window.innerWidth;
-      const canvasHeight = window.innerHeight;
       const cohete = document.getElementById('cohete');
-
       const vx = v0 * Math.cos(rad);
       const vy = v0 * Math.sin(rad);
       const tTotal = (2 * vy) / g;
@@ -132,10 +133,9 @@
         const x = vx * elapsed;
         const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
 
-        // Escalado para que se vea mejor en pantalla
         const escala = 5;
-        const px = 100 + escala * x;
-        const py = canvasHeight - escala * y - 100;
+        const px = 60 + escala * x;
+        const py = 20 + escala * y;
 
         cohete.style.left = `${px}px`;
         cohete.style.bottom = `${py}px`;
