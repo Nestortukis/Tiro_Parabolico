@@ -83,6 +83,7 @@
       position: absolute;
       width: 70px;
       z-index: 10;
+      transition: all 0.1s linear;
     }
   </style>
 </head>
@@ -140,6 +141,9 @@
       const canvasWidth = canvas.offsetWidth;
       const canvasHeight = canvas.offsetHeight;
 
+      const vx = v0 * Math.cos(rad);
+      const vy = v0 * Math.sin(rad);
+
       let startTime = null;
 
       function animar(timestamp) {
@@ -167,4 +171,5 @@
   </script>
 </body>
 </html>
+
 
