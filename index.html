@@ -130,15 +130,15 @@
         <p><strong>Alcance:</strong> ${alcance.toFixed(2)} m</p>
       `;
 
-      animarCohete(v0, rad, alcance);
+      animarCohete(v0, rad, alcance, tiempoVuelo);
     }
 
-    function animarCohete(v0, rad, alcance) {
+    function animarCohete(v0, rad, alcance, tTotal) {
       const g = 9.81;
       const cohete = document.getElementById('cohete');
-      const vx = v0 * Math.cos(rad);
-      const vy = v0 * Math.sin(rad);
-      const tTotal = (2 * vy) / g;
+      const canvas = document.getElementById('canvasArea');
+      const canvasWidth = canvas.offsetWidth;
+      const canvasHeight = canvas.offsetHeight;
 
       let startTime = null;
 
@@ -151,11 +151,12 @@
         const x = vx * elapsed;
         const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
 
-        const escala = 5; // ajuste de escala visual
-        const px = Math.min(escala * x, alcance);
-        const py = Math.min(escala * y, document.getElementById('canvasArea').offsetHeight - cohete.offsetHeight);
+        // Aseguramos que el cohete no se salga del área
+        const scale = 5;  // Factor de escala visual
+        const px = Math.min(scale * x, canvasWidth - cohete.width);
+        const py = Math.min(scale * y, canvasHeight - cohete.height);
 
-        // Desplazamos el cohete
+        // Actualizamos la posición del cohete
         cohete.style.transform = `translate(${px}px, -${py}px)`;
 
         requestAnimationFrame(animar);
