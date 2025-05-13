@@ -15,6 +15,7 @@
       height: 100vh;
       position: relative;
     }
+
     .container {
       max-width: 600px;
       margin: 30px auto;
@@ -25,14 +26,17 @@
       position: relative;
       z-index: 10;
     }
+    
     h1 {
       text-align: center;
       color: #fff;
     }
+
     label {
       display: block;
       margin-top: 15px;
     }
+
     input, button {
       padding: 10px;
       margin-top: 5px;
@@ -40,10 +44,12 @@
       border: none;
       border-radius: 5px;
     }
+
     input {
       background: #f0f0f0;
       color: #000;
     }
+
     button {
       background: #ff5722;
       color: white;
@@ -51,31 +57,33 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     button:hover {
       background: #e64a19;
     }
+
     #resultados {
       background: rgba(255, 255, 255, 0.2);
       padding: 15px;
       border-radius: 8px;
       margin-top: 20px;
     }
+
+    #canvasArea {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      border: 2px solid #fff;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
     #cohete {
       position: absolute;
       width: 70px;
       left: 0;
       bottom: 0;
       z-index: 1;
-      transition: transform 0.1s linear;
-    }
-    #canvasArea {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      pointer-events: none;
-      z-index: 2;
     }
   </style>
 </head>
@@ -145,8 +153,8 @@
         const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
 
         const escala = 6; // ajuste de escala visual
-        const px = escala * x;
-        const py = escala * y;
+        const px = Math.min(escala * x, document.getElementById('canvasArea').offsetWidth - cohete.offsetWidth);
+        const py = Math.min(escala * y, document.getElementById('canvasArea').offsetHeight - cohete.offsetHeight);
 
         cohete.style.transform = `translate(${px}px, -${py}px)`;
 
