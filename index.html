@@ -11,10 +11,8 @@
       background: linear-gradient(to top right, #1e3c72, #2a5298);
       color: #fff;
       margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding-bottom: 100px;
+      min-height: 100vh;
     }
     .container {
       max-width: 600px;
@@ -22,6 +20,7 @@
       border-radius: 15px;
       padding: 30px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin: 40px auto;
     }
     h1 {
       text-align: center;
@@ -58,11 +57,24 @@
       border-radius: 8px;
       margin-top: 20px;
     }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.2);
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+    .logo {
+      width: 100px;
+      display: block;
+      margin: 10px auto;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🚀 Calculadora de Tiro Parabólico 🚀</h1>
+    <h1>Calculadora de Tiro Parabólico</h1>
     <label for="velocidad">Velocidad inicial (m/s):</label>
     <input type="number" id="velocidad" />
 
@@ -72,7 +84,24 @@
     <button onclick="calcular()">Calcular</button>
 
     <div id="resultados"></div>
+
+    <div style="margin-top: 20px; font-size: 14px;">
+      <h4>¿Qué es Vy?</h4>
+      <p><strong>Vy</strong> es la componente vertical de la velocidad inicial. Se calcula con la fórmula:</p>
+      <p><code>Vy = v₀ * sen(θ)</code></p>
+      <p>Donde:</p>
+      <ul>
+        <li><strong>v₀</strong>: Velocidad inicial total</li>
+        <li><strong>θ</strong>: Ángulo de lanzamiento</li>
+      </ul>
+      <p>Vy representa qué tanto de la velocidad inicial va hacia arriba, y se usa para calcular el tiempo de vuelo y la altura máxima.</p>
+    </div>
   </div>
+
+  <footer>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/LogoUMG.svg/512px-LogoUMG.svg.png" alt="Logo UMG" class="logo" />
+    <p>Néstor Amílcar del Cid González<br/>9960-23-9067</p>
+  </footer>
 
   <script>
     function calcular() {
