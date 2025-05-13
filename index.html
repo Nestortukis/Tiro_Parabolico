@@ -12,7 +12,7 @@
       color: #fff;
       padding: 20px;
       margin: 0;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     .container {
       max-width: 600px;
@@ -21,6 +21,8 @@
       border-radius: 15px;
       padding: 30px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
     }
     h1 {
       text-align: center;
@@ -59,16 +61,8 @@
     }
     .cohete {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      animation: despegar 3s ease-out infinite;
-    }
-    @keyframes despegar {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-100px); }
-      100% { transform: translateX(-50%) translateY(0); }
+      width: 60px;
+      z-index: 1;
     }
   </style>
 </head>
@@ -86,7 +80,7 @@
     <div id="resultados"></div>
   </div>
 
-  <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" alt="cohete" class="cohete" />
+  <img id="cohete" src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" alt="cohete" class="cohete" />
 
   <script>
     function calcular() {
@@ -113,6 +107,43 @@
         <p><strong>Altura máxima:</strong> ${alturaMax.toFixed(2)} m</p>
         <p><strong>Alcance:</strong> ${alcance.toFixed(2)} m</p>
       `;
+
+      animarCohete(v0, rad);
+    }
+
+    function animarCohete(v0, rad) {
+      const g = 9.81;
+      const canvasWidth = window.innerWidth;
+      const canvasHeight = window.innerHeight;
+      const cohete = document.getElementById('cohete');
+
+      const vx = v0 * Math.cos(rad);
+      const vy = v0 * Math.sin(rad);
+      const tTotal = (2 * vy) / g;
+
+      let startTime = null;
+
+      function animar(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) / 1000;
+
+        if (elapsed > tTotal) return;
+
+        const x = vx * elapsed;
+        const y = vy * elapsed - 0.5 * g * elapsed * elapsed;
+
+        // Escalado para que se vea mejor en pantalla
+        const escala = 5;
+        const px = 100 + escala * x;
+        const py = canvasHeight - escala * y - 100;
+
+        cohete.style.left = `${px}px`;
+        cohete.style.bottom = `${py}px`;
+
+        requestAnimationFrame(animar);
+      }
+
+      requestAnimationFrame(animar);
     }
   </script>
 </body>
